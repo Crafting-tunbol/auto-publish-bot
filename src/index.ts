@@ -59,12 +59,12 @@ async function sendLog(log: AccesLog) {
             { name: 'User Email : ', value: log.user_email },
             { name: 'User Id : ', value: log.user_id },
             { name: 'Ip Address : ', value: log.ip_address },
+            { name: 'Country : ', value: log.country },
             { name: 'Connection at ', value: `<t:${timestamp}:F> on \`${log.app_domain}\` (from ${log.app_name} service)`},
             { name: 'Ray Id ', value: log.ray_id}
         );
     
-    const message = await channel.send({ embeds: [exampleEmbed] });
-    if (message.crosspostable) message.crosspost();
+    channel.send({ embeds: [exampleEmbed] });
 }
 
 function getUserAvatar(email: string) {
