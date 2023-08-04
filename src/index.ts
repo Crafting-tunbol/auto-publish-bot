@@ -46,7 +46,7 @@ function checkLogs() {
     }, 1000 * 10);
 }
 
-function sendLog(log: AccesLog) {
+async function sendLog(log: AccesLog) {
     const channel = client.channels.cache.get(process.env.CONNECTIONS_CHANNEL_ID!) as TextBasedChannel;
     const timestamp = new Date(log.created_at).getTime() / 1000;
 
@@ -63,7 +63,8 @@ function sendLog(log: AccesLog) {
             { name: 'Ray Id ', value: log.ray_id}
         );
     
-    channel.send({ embeds: [exampleEmbed] });
+    const message = await channel.send({ embeds: [exampleEmbed] });
+    if (message.crosspostable) message.crosspost();
 }
 
 function getUserAvatar(email: string) {
